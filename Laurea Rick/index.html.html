@@ -1,100 +1,75 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Congratulazioni Riccardo 🎓</title>
-  <style>
-    body {background: linear-gradient(180deg,#071029 0%,#0b1220 60%);color: #fff;font-family: Inter, system-ui, sans-serif;margin:0;padding:0;text-align:center;}
-    .loader, .congrats {margin-top: 20vh;}
-    .progress {width: 80%;height: 20px;margin: 20px auto;background: rgba(255,255,255,0.2);border-radius: 10px;overflow: hidden;}
-    .bar {height: 100%;width: 99%;background: linear-gradient(90deg,#36d399,#60a5fa);transition: width 2s ease-in-out;}
-    h1 {font-size: 2rem;}
-    .hidden {display:none;}
-    #confetti-canvas {position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;}
-    .gallery {display: flex;flex-wrap: wrap;justify-content: center;gap: 20px;margin: 40px auto;max-width: 900px;}
-    .gallery img {width: 280px;height: auto;border-radius: 10px;box-shadow: 0 0 15px rgba(0,0,0,0.4);}
-    iframe {border:none;border-radius:12px;margin-top:20px;}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laurea di [Nome Amico]</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f0f8ff;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 40px 20px;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+        }
+        header p {
+            margin: 10px 0 0 0;
+            font-size: 1.2em;
+        }
+        section {
+            padding: 50px 20px;
+        }
+        .congrats {
+            font-size: 2em;
+            color: #ff6347;
+            margin-bottom: 20px;
+        }
+        .date {
+            font-size: 1.2em;
+            color: #555;
+        }
+        .photos img {
+            max-width: 300px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 10px;
+        }
+    </style>
 </head>
 <body>
-  <canvas id="confetti-canvas"></canvas>
+    <header>
+        <h1>Congratulazioni [Nome Amico]!</h1>
+        <p>Laurea in [Corso di Laurea]</p>
+    </header>
 
-  <div class="loader" id="loader">
-    <h1>Laurea loading <span id="percent">99%</span></h1>
-    <div class="progress"><div class="bar" id="bar"></div></div>
-  </div>
+    <section>
+        <div class="congrats">🎓 Ce l'hai fatta!</div>
+        <div class="date">Data della laurea: 27 Ottobre 2025</div>
 
-  <div class="congrats hidden" id="congrats">
-    <h1>🎉 Congratulazioni Riccardo 🎓</h1>
-    <h2>Ce l'hai fatta Ricky1 (e pure in tempo)!</h2>
-    <iframe id="ytplayer" width="360" height="203" src="" allow="autoplay"></iframe>
-    <div class="gallery">
-      <img src="Ricky1.jpg" alt="Riccardo 1" />
-      <img src="ricky2.jpg" alt="Riccardo 2" />
-      <img src="Ricky3.jpg" alt="Riccardo 3" />
-    </div>
-  </div>
+        <div class="photos">
+            <!-- Puoi aggiungere foto qui -->
+            <img src="foto1.jpg" alt="Foto laurea">
+            <img src="foto2.jpg" alt="Foto laurea">
+        </div>
+    </section>
 
-  <script>
-    const bar = document.getElementById('bar');
-    const percent = document.getElementById('percent');
-    const loader = document.getElementById('loader');
-    const congrats = document.getElementById('congrats');
-    const ytplayer = document.getElementById('ytplayer');
-
-    setTimeout(() => {
-      bar.style.width = '100%';
-      percent.textContent = '100%';
-      setTimeout(() => {
-        loader.classList.add('hidden');
-        congrats.classList.remove('hidden');
-        startConfetti();
-        // Imposta il video YouTube (We Are the Champions - Queen)
-        ytplayer.src = 'https://www.youtube.com/embed/04854XqcfCY?autoplay=1&mute=1';
-        document.body.addEventListener('click', () => {
-          ytplayer.src = 'https://www.youtube.com/embed/04854XqcfCY?autoplay=1';
-        }, {once: true});
-      }, 1200);
-    }, 1500);
-
-    const canvas = document.getElementById('confetti-canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let confetti = [];
-    function random(min,max){return Math.random()*(max-min)+min;}
-    function createConfetti(){
-      for(let i=0;i<200;i++){
-        confetti.push({x:random(0,canvas.width),y:random(0,canvas.height),r:random(4,8),d:random(10,30),color:['#ff3b30','#ffcc00','#28a745','#60a5fa','#8b5cf6'][Math.floor(random(0,5))],tilt:random(-10,10),tiltAngleIncremental:random(0.05,0.12),tiltAngle:0});
-      }
-    }
-    function drawConfetti(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      confetti.forEach(p=>{
-        ctx.beginPath();
-        ctx.lineWidth=p.r;
-        ctx.strokeStyle=p.color;
-        ctx.moveTo(p.x+p.tilt+p.r/2,p.y);
-        ctx.lineTo(p.x+p.tilt,p.y+p.tilt+p.r/2);
-        ctx.stroke();
-      });
-      updateConfetti();
-    }
-    function updateConfetti(){
-      confetti.forEach(p=>{
-        p.tiltAngle+=p.tiltAngleIncremental;
-        p.y+=Math.cos(p.d)+1+p.r/2;
-        p.x+=Math.sin(p.d);
-        p.tilt=Math.sin(p.tiltAngle)*15;
-        if(p.y>canvas.height){p.y=-10;p.x=random(0,canvas.width);}
-      });
-    }
-    function startConfetti(){
-      createConfetti();
-      (function animate(){drawConfetti();requestAnimationFrame(animate);})();
-    }
-  </script>
+    <footer>
+        <p>Festeggiamo insieme questo grande traguardo! 🎉</p>
+    </footer>
 </body>
 </html>
